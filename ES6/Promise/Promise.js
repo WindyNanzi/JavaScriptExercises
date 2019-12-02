@@ -17,8 +17,8 @@ function MyPromise(fn){
   
   this.data = undefined
   this.stat = PENDING
-  this.onResolvedCallback = undefined
-  this.onRejectedCallback = undefined
+  this.onResolvedCallback = [] // 假如有 p = new Promise(...) ;p.then(...); p.then(...) 均是p的回调，所以采用数组来存储p的各种回调
+  this.onRejectedCallback = []
 
   /** resolve 与 reject 并不是 fn 这个函数带来的函数，
    * 在Promise中 ，调用方式为 resolve([value])
@@ -38,7 +38,7 @@ function MyPromise(fn){
       self.stat = FULFILLED
       self.data = value 
       setTimeout(()=>{
-        if(typeof self.onResolvedCallback === 'function') self.onResolvedCallback(value)
+        self.onResolvedCallback.map(callback => callback(value))
       },0)
     }
   }
@@ -48,8 +48,7 @@ function MyPromise(fn){
       self.stat = REJECTED
       self.data = reason
       setTimeout(()=>{
-        if(typeof self.onRejectedCallback === 'function') self.onRejectedCallback(value)
-        else console.error(reason)
+        self.onRejectedCallback.map(callback => callback(value))
       },0)
     }
   }
@@ -79,53 +78,127 @@ function MyPromise(fn){
 MyPromise.prototype = {
   /**
    * 核心函数 then
+   * then 函数应该算作为一个触发（注册）器，在调用then函数的时候，会将传入then函数的两个函数，注册到它的Promise的两个回调上面
    * @param {Function} onFulfilled 成功的回调函数
    * @param {Function} onRejected 失败的回调函数
    */
   then: function(onFulfilled, onRejected){
     const self = this
-    const promise = new Promise((resolve, reject) => {
-      self.onResolvedCallback = value => {
+    const status = self.stat
+    // 假如传入的不是函数，需要做无视处理
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : function(value){}
+    onRejected = typeof onRejected === 'function' ? onRejected : function(value){} 
+
+    //假如是已经确定的状态， 则根据状态就可以执行传入的函数， 而无需将回调函数注册在 它的 Promise 中
+    // 在是异步调用 resolve/reject 时，它的 Promise 的 stat 是确定的
+    if(status === FULFILLED){
+      return new Promise((resolve, reject) => {
         try{
-          let val = onFulfilled(value)
-          // 如果是一个Promise 对象，则 then 获取的是 这个 Promise 的参数
-          if(val instanceof MyPromise){
-            //假如 val 已经是一个Promise 对象, 应该取他的结果作为Pormise的结果
-            // 在进入 then 函数之后，成功与失败的回调函数都不可避免已经存在上个Promise当中了，
-            // 想让返回的 Promise 能够执行成功与失败的回调，只能把 回调函数的触发器传入 当前Promise 的 回调中
-            // then 函数实际上就是把 成功与失败的回调函数赋值到它的直接 Promise 对象的成功与回调中
-            val.then(resolve, reject)
+          let result = onFulfilled(self.data)
+          if(result instanceof MyPromise){
+            // 假如返回的是 Promise 类型， 需要将想要执行的回调注册在这个 Promise 当中
+            result.then(resolve, reject)
           }else{
-            resolve(val)
+            resolve(result)
           }
-        }catch(e){
+        } catch(e){
           reject(e)
         }
-      }
-      self.onRejectedCallback = reason => {
-        let err = onRejected(reason)
-        if(err instanceof MyPromise){
-          reject(err.data)
-        }else{
-          reject(err)
+      })
+    }
+
+    if(status === REJECTED){
+      return new Promise((resolve, reject) => {
+        try{
+          let result = onFulfilled(self.data)
+          if(result instanceof MyPromise){
+            result.then(resolve, reject)
+          }else{
+            reject(result)
+          }
+        } catch (e) {
+          reject(e)
         }
-      }
-    })
-    return promise
+      })
+    }
+
+    if(status === PENDING){
+      return new Promise((resolve ,reject)=>{
+        self.onResolvedCallback.push( value => {
+          try{
+            let result = onFulfilled(value)
+            if(result instanceof MyPromise){
+              result.then(resolve, reject)
+            }else{
+              resolve(result)
+            }
+          } catch(e){
+            reject(e)
+          }
+        })
+
+        self.onRejectedCallback.push( value => {
+          try{
+            let result = onFulfilled(value)
+            if(result instanceof MyPromise){
+              result.then(resolve, reject)
+            }else{
+              reject(result)
+            }
+          } catch (e) {
+            reject(e)
+          }
+        })
+      })
+    }
+    // const promise = new Promise((resolve, reject) => {
+    //   self.onResolvedCallback.push(value => {
+    //     try{
+    //       let val = onFulfilled(value)
+    //       // 如果是一个Promise 对象，则 then 获取的是 这个 Promise 的参数
+    //       if(val instanceof MyPromise){
+    //         //假如 val 已经是一个Promise 对象, 应该取他的结果作为Pormise的结果
+    //         // 在进入 then 函数之后，成功与失败的回调函数都不可避免已经存在上个Promise当中了，
+    //         // 想让返回的 Promise 能够执行成功与失败的回调，只能把 回调函数的触发器传入 当前Promise 的 回调中
+    //         // then 函数实际上就是把 成功与失败的回调函数赋值到它的直接 Promise 对象的成功与回调中
+    //         val.then(resolve, reject)
+    //       }else{
+    //         resolve(val)
+    //       }
+    //     }catch(e){
+    //       reject(e)
+    //     }
+    //   })
+    //   self.onRejectedCallback.push(reason => {
+    //     let err = onRejected(reason)
+    //     if(err instanceof MyPromise){
+    //       reject(err.data)
+    //     }else{
+    //       reject(err)
+    //     }
+    //   })
+    // })
+    // return promise
   }
 }
 
-new MyPromise((resolve, reject)=>{
+/** 由于setTimeout 仅仅能够做到宏任务的事件队列，所以下面程序执行顺序错误 */
+var o = new MyPromise((resolve, reject)=>{
   setTimeout(()=>{
     resolve(1)
   },100)
 }).then((val)=>{
   console.log(val)
-  return new MyPromise((resolve, reject) => {
-    setTimeout(()=>{
-      resolve(5)
-    })
+  var p = new MyPromise((resolve, reject) => {
+    setTimeout(()=>resolve(2),100)
   })
-}).then((val)=>{
-  console.log(val)
+  p.then((val)=>{
+    console.log(val)
+  })
+  p.then(()=>{
+    console.log(3)
+  })
+})
+o.then(()=>{
+  console.log(4)
 })
