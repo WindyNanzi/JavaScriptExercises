@@ -166,6 +166,34 @@ const p = {
      *  内部第二个zhen2
      *  外部第二个then
      */
+  },
+  6: function(){
+    var p0 = new Promise((resolve, reject) => {
+      resolve(1)
+    })
+    p0.then((value)=>{
+      console.log(value)
+      return new Promise((resolve, reject) => {
+        resolve(2)
+      })
+    })
+
+    p0.then((value) => {
+      console.log(value)
+      return 3
+    }).then((value) => {
+      console.log(value)
+      return new Promise((resolve, reject) => {
+        resolve(4)
+      }).then((value) => {
+        console.log(value)
+        return 5
+      })
+    })
+
+    p0.then((value) => {
+      console.log(value)
+    })
   }
 }
 function PromiseTest(i) {
@@ -174,4 +202,4 @@ function PromiseTest(i) {
 
 
 
-PromiseTest(5)
+PromiseTest(6)
