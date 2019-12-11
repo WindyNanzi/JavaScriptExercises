@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    style{
+      display: block;
+      white-space: pre;
+      width: 300px;
+      border-radius: 3px;
+      outline: none;
+      background-color: #eeeeee;
+      font-size: 14px;
+      font-weight: bolder;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .img_box_1 {
+      width: 400px;
+      background-color:aqua;
+      border: 3px dashed #903750;
+      position: relative;
+    }
+    .img_box_1:before {
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: #000000;
+      display: inline-block;
+      top: 50%;
+      margin-top: -1px;
+      position: absolute;
+    }
+    .img_box_1>img{
+      vertical-align: baseline;
+      position: relative;
+    }
+    .img_box_1>span{
+      background: #ffffff;
+    }
+    .img_box_1>span.another{
+      font-size: 50px;
+    }
+    .parent_4{
+      display: inline-block;
+      font-size: 0;
+      background-color: black;
+    }
+    .parent_4 .son{
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+    }
+    .box_3{
+      background:palegreen;
+      width: 300px;
+    }
+    .box_3 > div{
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border: 3px dashed #eeeeee;
+    }
+  </style>
+</head>
+<body>
+  <h3>1.样式：</h3>
+  <style contentEditable>
+    
+  </style>
+  <div class="img_box_1">
+    <img src="./images/small-face-white.jpg">
+    <span>x</span>
+    <span class="another">x</span>
+  </div>
+  <p>可以观察到图片距离底部有一定的距离，这是由于
+    <b>img 没有基线（baseline），这意味着，当在一个行内格式的上下文（an inline formatting context）中使用 vertical-align: baseline 时，图像的底部将会与容器的文字基线对齐。</b>
+    只需要将 img 的样式调整为 vertical-align: bottom; 即可
+  </p>
+  <h3>2.样式：</h3>
+  <style contentEditable>
+    .img_box_2 {
+      width: 300px;
+      height: 200px;
+      line-height: 200px;
+      background-color:aqua;
+      border: 3px dashed #903750;
+    }
+    .img_box_2>img{
+      height: 190px;
+      vertical-align: middle;
+    }
+  </style>
+  <div class="img_box_2">
+    <img src="./images/small-face-white.jpg">
+    
+  </div>
+  <p></p>
+  <h3>3.</h3>
+  <div class="box_3">
+    <div></div>
+    <div>x</div>
+    <span>x</span>
+  </div>
+  <h3>4.</h3>
+  <div class="parent_4">
+    <div class="son"></div>
+    <div class="son">x</div>
+  </div>
+  <h3>得出结论，在多个元素居中对齐时，不要使用vertical-align</h3>
+  
+</body>
+</html>
