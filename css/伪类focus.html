@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .clear-float:after{
+      content: '';
+      height: 0;
+      display: block;
+      clear: both;
+    }
+    .focus{
+      width: 120px;
+      height: 40px;
+      border: 1px solid #eeeeee;
+      color: #000000;
+      border-radius: 3px;
+      background:ivory;
+      float: left;
+      margin-left: 20px;
+      outline: none;
+      transition: .5s;
+      position: relative;
+    }
+    .focus:hover{
+      background: lightgoldenrodyellow;
+      border-color: linen;
+      cursor: pointer;
+    }
+    .focus:focus > .son{
+      /* visibility: visible; */
+      background:gainsboro;
+      border-color: silver;
+      height: 200px;
+    }
+    .focus .son{
+      /* visibility: hidden; */
+      transition:.5s;
+      position: absolute;
+      top: 100%;
+      width: 120px;
+      height: 0;
+      border: 1px solid transparent;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="clear-float">
+    <!-- <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div> -->
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+    <div tabindex="-1" class="focus"><div class="son"></div></div>
+  </div>
+  <pre> 
+    伪类:focus 只能在<b>可被聚焦</b>的元素上使用，input 与 button 自带可被聚焦的特性，所以在 focus 时会与未被 focus的元素产生一定的样式差别。
+    而 html 中的全局属性 tabindex 可以更改元素的可被聚焦的特性， 使得:focus 伪类生效。
+    在某一类仅需要点击触发，而点击其他任何元素时就会切换样式的组件中可以有效的进行行为与样式的分离。
+  </pre>
+</body>
+</html>
