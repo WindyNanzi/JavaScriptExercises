@@ -34,6 +34,13 @@ module.exports = {
     // 热更新
     new Webpack.HotModuleReplacementPlugin()
   ],
+  resolve: {
+    alias:{
+      'vue$': 'vue/dist/vue.runtime.esm.js',
+      ' @':path.resolve(__dirname,'../src')
+    },
+    extensions:['*','.js','.json','.vue']
+  },
   module: {
     rules:[
       {
@@ -110,13 +117,6 @@ module.exports = {
         use: ['vue-loader']
       }
     ],
-    resolve: {
-      alias:{
-        'vue$': 'vue/dist/vue.runtime.esm.js',
-        ' @':path.resolve(__dirname,'../src')
-      },
-      extensions:['*','.js','.json','.vue']
-    }
   }
 }
 
