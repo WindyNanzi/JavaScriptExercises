@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const vueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: 'development',
@@ -22,6 +23,8 @@ module.exports = {
       filename: '[name].[hash].css',
       chunkFilename: '[id].css'
     }),
+    // vue文件处理
+    new vueLoaderPlugin()
   ],
   modules: {
     rules:[
@@ -93,8 +96,19 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.vue/,
+        use: ['vue-loader']
       }
-    ]
+    ],
+    resolve: {
+      alias:{
+        'vue$': 'vue/dist/vue.runtime.esm.js',
+        ' @':path.resolve(__dirname,'../src')
+      },
+      extensions:['*','.js','.json','.vue']
+    }
   }
 }
 
