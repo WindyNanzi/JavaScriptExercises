@@ -26,6 +26,16 @@ module.exports = {
   modules: {
     rules:[
       {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        },
+        exclude: /node_modules/
+      },
+      {
         test:/\.css$/,
         use:['style-loader', 'css-loader', 'postcss-loader'] //css文件解析，从右向左解析，postcss-loader是为了给css加浏览器前缀
       },
