@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: 'development',
@@ -16,7 +16,12 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html')
     }), 
     // 清除上次打包的文件
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    // 拆分css
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].css'
+    }),
   ],
   modules: {
     rules:[
