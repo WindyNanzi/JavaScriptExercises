@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, '../src/main.js'), //入口
+  entry: ["@babel/polyfill", path.resolve(__dirname, '../src/index.js')], //入口
   output: { //出口
     filename: '[name].[hash:8].js', //文件名
     path: path.resolve(__dirname, '../dist') 
