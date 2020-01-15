@@ -1,10 +1,13 @@
 const path = require('path')
+const os = require('os')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const Webpack = require('webpack')
-const devMode = process.argv.indexOf('--mode=production') === -1;
+const devMode = process.argv.indexOf('--mode=production') === -1
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 module.exports = {
   mode: 'development',
@@ -29,7 +32,20 @@ module.exports = {
     // vue文件处理
     new vueLoaderPlugin(),
     // 热更新
-    new Webpack.HotModuleReplacementPlugin()
+    new Webpack.HotModuleReplacementPlugin(),
+    new HappyPack({
+      id: 'happyBabel',
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            ['@babel/preset-env']
+          ],
+          cacheDirectory: true
+        }
+      }],
+      threadPool: happyThreadPool //共享线程池
+    })
   ],
   resolve: {
     alias:{
@@ -42,12 +58,10 @@ module.exports = {
     rules:[
       {
         test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        },
+        // 将js交给id名为happyBabel的happyPack的实例（应该是一个线程）去处理
+        use: [{
+          loader: 'happypack/loader?id=happyBabel'
+        }],
         exclude: /node_modules/
       },
       {
