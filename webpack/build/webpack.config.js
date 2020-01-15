@@ -4,18 +4,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const Webpack = require('webpack')
+const devMode = process.argv.indexOf('--mode=production') === -1;
 
 module.exports = {
   mode: 'development',
   entry: ["@babel/polyfill", path.resolve(__dirname, '../src/index.js')], //入口
   output: { //出口
     filename: '[name].[hash:8].js', //文件名
-    path: path.resolve(__dirname, '../dist') 
-  },
-  devServer:{
-    port: 4000,
-    hot: true,
-    contentBase: '../dist'
+    chunkFilename: '[name].[hash:8].js',
+    path: path.resolve(__dirname, '../dist/js') 
   },
   plugins: [
     // 将打包好的js添加进入打包好的index.html中
@@ -26,8 +23,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     // 拆分css
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].css'
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
     }),
     // vue文件处理
     new vueLoaderPlugin(),
@@ -55,11 +52,27 @@ module.exports = {
       },
       {
         test:/\.css$/,
-        use:['style-loader', 'css-loader', 'postcss-loader'] //css文件解析，从右向左解析，postcss-loader是为了给css加浏览器前缀
+        use:[
+          {
+            loader: devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+            options:{
+              publicPath: '../dist/css/',
+              hmr: devMode
+            }
+          },
+          'css-loader', 
+          'postcss-loader'
+        ] //css文件解析，从右向左解析，postcss-loader是为了给css加浏览器前缀
       },
       {
         test:/\.less$/,
-        use:['style-loader', 'css-loader', 'postcss-loader','less-loader'] //less文件解析
+        use:[{
+          loader: devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+          options:{
+            publicPath: '../dist/css/',
+            hmr: devMode
+          }
+        }, 'css-loader', 'postcss-loader','less-loader'] //less文件解析
       },
       {
         test: /\.(jpe?g|png|gif)$/i, //图片文件
@@ -114,7 +127,12 @@ module.exports = {
       },
       {
         test: /\.vue/,
-        use: ['vue-loader']
+        use: [{
+          loader: 'vue-loader',
+          options: {
+            preserveWhitespace: false
+          }
+        }]
       }
     ],
   }
