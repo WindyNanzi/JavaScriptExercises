@@ -34,7 +34,7 @@ module.exports = {
     // 热更新
     new Webpack.HotModuleReplacementPlugin()
   ],
-  modules: {
+  module: {
     rules:[
       {
         test: /\.js$/,
