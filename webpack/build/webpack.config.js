@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
+const Webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
@@ -10,6 +11,11 @@ module.exports = {
   output: { //出口
     filename: '[name].[hash:8].js', //文件名
     path: path.resolve(__dirname, '../dist') 
+  },
+  devServer:{
+    port: 4000,
+    hot: true,
+    contentBase: '../dist'
   },
   plugins: [
     // 将打包好的js添加进入打包好的index.html中
@@ -24,7 +30,9 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     // vue文件处理
-    new vueLoaderPlugin()
+    new vueLoaderPlugin(),
+    // 热更新
+    new Webpack.HotModuleReplacementPlugin()
   ],
   modules: {
     rules:[
