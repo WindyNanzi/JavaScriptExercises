@@ -5,11 +5,15 @@ import { request }  from './request'
 
 const App = () => {
 
-  const SIZE = 10 * 1024 * 1024 
+  const SIZE = 1 * 1024 * 1024 
 
+  interface chunkData{
+    chunk: Blob,
+    hash: string
+  }
 
   const [file,setFile] = useState<File | null>(null)
-  const [data,setData] = useState<Array<any>>([])
+  const [data,setData] = useState<Array<chunkData>>([])
 
   /**
    * 生成文件切片
@@ -33,7 +37,7 @@ const App = () => {
       formData.append('hash', hash)
       formData.append('filename', file!.name)
       return { formData }
-    }).map(async ({ formData }) => {
+    }).map(({ formData }) => {
       request({
         url: 'http://localhost:3000',
         data: formData
@@ -41,22 +45,33 @@ const App = () => {
     })
 
     await Promise.all(requestList) //并发切片
+    await mergeRequest() //服务端还需要合并切片
   }
 
   function handleFileChange(e: (React.ChangeEvent<HTMLInputElement> & HTMLInputElement)){
     const file = e.target.files![0]
     if(!file) return
     setFile(file)
+    const fileChunkList = createFileChunk(file)
+    setData(fileChunkList.map(({file:chunk},index)=>({
+      chunk: chunk,
+      hash: `${file.name}-${index}`
+    })))
   } 
 
   async function handleUpload(e:React.MouseEvent<HTMLElement, MouseEvent>){
     if(!file) return
-    const fileChunkList = createFileChunk(file)
-    setData(fileChunkList.map(({file: chunk} ,index) => ({
-      chunk: chunk,
-      hash: `${file.name}-${index}`
-    })))
     await uploadChunks()
+  }
+
+  async function mergeRequest(){
+    await request({
+      url: 'http://localhost:3000/merge',
+      headers: {
+        "content-type": "application/json"
+      },
+      data: JSON.stringify({filename: file?.name})
+    })
   }
 
   return (
