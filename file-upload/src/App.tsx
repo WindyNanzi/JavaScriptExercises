@@ -39,7 +39,7 @@ const App = () => {
       return { formData }
     }).map(({ formData }) => {
       request({
-        url: 'http://localhost:3000',
+        url: 'http://localhost:3030',
         data: formData
       })
     })
@@ -66,11 +66,11 @@ const App = () => {
 
   async function mergeRequest(){
     await request({
-      url: 'http://localhost:3000/merge',
+      url: 'http://localhost:3030/merge',
       headers: {
         "content-type": "application/json"
       },
-      data: JSON.stringify({filename: file?.name})
+      data: JSON.stringify({filename: file?.name, size: SIZE})
     })
   }
 
