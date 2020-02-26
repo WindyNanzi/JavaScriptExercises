@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import ReactDOM from 'react-dom'
 
 import {
@@ -12,18 +12,24 @@ import {
 
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
+import './index.css'
 
 const Root = document.getElementById('root')
 
-const Test = ()=> (<div className='test'>
-  <Button type='primary' > 
-    wooo!
-  </Button>
-</div>)
+const App = () => {
+  return (
+    <div className='App'>
+      <div className="Content">
+        <input type='file'/>
+        <Button type='primary'>上传</Button>
+      </div>
+    </div>
+  )
+}
 
 ReactDOM.render(
   <Router>
-    <Route path='/' component = { Test }></Route>
+    <Route path='/' component = { App }></Route>
   </Router>,
   Root
 )
