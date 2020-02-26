@@ -10,6 +10,18 @@ const presets = [
   '@babel/preset-typescript'
 ]
 
+const plugins = [
+  [
+    'import',
+    {
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: 'css'
+    }
+  ]
+]
+
 module.exports = {
-  presets: presets
+  presets: presets,
+  plugins: plugins
 }
