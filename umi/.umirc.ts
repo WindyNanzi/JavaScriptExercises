@@ -1,7 +1,9 @@
-import { defineConfig } from 'umi';
+import { defineConfig } from 'umi'
+import { routes } from './config/config'
 
 export default defineConfig({
-  routes: [
-    { path: '/', component: '@/pages/index' },
-  ],
+  layout: {
+    name: 'React Hook'
+  },
+  routes
 });
