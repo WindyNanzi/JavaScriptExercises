@@ -5,5 +5,5 @@ export default defineConfig({
   layout: {
     name: 'React Hook'
   },
-  routes
+  routes,
 });
