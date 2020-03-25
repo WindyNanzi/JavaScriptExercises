@@ -5,37 +5,56 @@ const routes: IRoute[] = [
     path: '/',
     component: '@/pages/index',
     exact: true,
-    name: '首页',
-    icon: 'AimOutlined'
+    menu:{
+      name: '首页',
+      icon: 'AimOutlined'
+    }
   },
   {
     path: '/demo1',
     component: '@/pages/demo1',
-    name: 'demo1',
-    icon: 'TrademarkOutlined'
+    menu:{
+      name: 'demo1',
+      icon: 'TrademarkOutlined'
+    }
   },
   {
     path: '/demo2',
     component: '@/pages/demo2',
-    name: 'demo2',
-    icon: 'TwitterOutlined'
+    menu:{
+      name: 'demo2',
+      icon: 'TwitterOutlined'
+    }
   },
   {
     path: '/demo3',
     component: '@/pages/demo3',
-    name: 'demo3',
-    icon: 'ZhihuOutlined'
+    menu:{
+      name: 'demo3',
+      icon: 'ZhihuOutlined'
+    }
   },
   {
     path: '/demo4',
     component: '@/pages/demo4',
-    name: 'demo4',
-    icon: 'DingtalkOutlined'
+    menu:{
+      name: 'demo4',
+      icon: 'DingtalkOutlined'
+    }
   },{
     path: '/demo5',
     component: '@/pages/demo5',
-    name: 'demo5',
-    icon: 'UsbOutlined'
+    menu:{
+      name: 'demo5',
+      icon: 'UsbOutlined'
+    }
+  },{
+    path: '/demo6',
+    component: '@/pages/demo6',
+    menu:{
+      name: 'demo6',
+      icon: 'UsbOutlined'
+    }
   }
 ]
 
