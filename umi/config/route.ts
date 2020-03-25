@@ -55,6 +55,13 @@ const routes: IRoute[] = [
       name: 'demo6',
       icon: 'HeatMapOutlined'
     }
+  },{
+    path: '/demo7',
+    component: '@/pages/demo7/index',
+    menu:{
+      name: 'demo7',
+      icon: 'HeatMapOutlined'
+    }
   }
 ]
 
