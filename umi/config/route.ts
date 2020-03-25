@@ -7,7 +7,7 @@ const routes: IRoute[] = [
     exact: true,
     menu:{
       name: '首页',
-      icon: 'AimOutlined'
+      icon: 'HeatMapOutlined'
     }
   },
   {
@@ -15,7 +15,7 @@ const routes: IRoute[] = [
     component: '@/pages/demo1',
     menu:{
       name: 'demo1',
-      icon: 'TrademarkOutlined'
+      icon: 'HeatMapOutlined'
     }
   },
   {
@@ -23,7 +23,7 @@ const routes: IRoute[] = [
     component: '@/pages/demo2',
     menu:{
       name: 'demo2',
-      icon: 'TwitterOutlined'
+      icon: 'HeatMapOutlined'
     }
   },
   {
@@ -31,7 +31,7 @@ const routes: IRoute[] = [
     component: '@/pages/demo3',
     menu:{
       name: 'demo3',
-      icon: 'ZhihuOutlined'
+      icon: 'HeatMapOutlined'
     }
   },
   {
@@ -39,21 +39,21 @@ const routes: IRoute[] = [
     component: '@/pages/demo4',
     menu:{
       name: 'demo4',
-      icon: 'DingtalkOutlined'
+      icon: 'HeatMapOutlined'
     }
   },{
     path: '/demo5',
     component: '@/pages/demo5',
     menu:{
       name: 'demo5',
-      icon: 'UsbOutlined'
+      icon: 'HeatMapOutlined'
     }
   },{
     path: '/demo6',
     component: '@/pages/demo6',
     menu:{
       name: 'demo6',
-      icon: 'UsbOutlined'
+      icon: 'HeatMapOutlined'
     }
   }
 ]
