@@ -14,7 +14,7 @@ const routes: IRoute[] = [
     path: '/demo1',
     component: '@/pages/demo1',
     menu:{
-      name: 'demo1',
+      name: 'useState',
       icon: 'HeatMapOutlined'
     }
   },
@@ -22,7 +22,7 @@ const routes: IRoute[] = [
     path: '/demo2',
     component: '@/pages/demo2',
     menu:{
-      name: 'demo2',
+      name: 'useState2',
       icon: 'HeatMapOutlined'
     }
   },
@@ -30,7 +30,7 @@ const routes: IRoute[] = [
     path: '/demo3',
     component: '@/pages/demo3',
     menu:{
-      name: 'demo3',
+      name: 'useEffect',
       icon: 'HeatMapOutlined'
     }
   },
@@ -38,28 +38,35 @@ const routes: IRoute[] = [
     path: '/demo4',
     component: '@/pages/demo4',
     menu:{
-      name: 'demo4',
+      name: 'useEffect2',
       icon: 'HeatMapOutlined'
     }
   },{
     path: '/demo5',
     component: '@/pages/demo5',
     menu:{
-      name: 'demo5',
+      name: 'useContext',
       icon: 'HeatMapOutlined'
     }
   },{
     path: '/demo6',
     component: '@/pages/demo6',
     menu:{
-      name: 'demo6',
+      name: 'useReducer',
       icon: 'HeatMapOutlined'
     }
   },{
     path: '/demo7',
     component: '@/pages/demo7/index',
     menu:{
-      name: 'demo7',
+      name: 'useContext + useReducer',
+      icon: 'HeatMapOutlined'
+    }
+  },{
+    path: '/demo8',
+    component: '@/pages/demo8',
+    menu:{
+      name: 'useMemo',
       icon: 'HeatMapOutlined'
     }
   }
