@@ -69,6 +69,13 @@ const routes: IRoute[] = [
       name: 'useMemo',
       icon: 'HeatMapOutlined'
     }
+  },{
+    path: '/demo9',
+    component: '@/pages/demo9',
+    menu:{
+      name: 'useCallback + 自定义',
+      icon: 'HeatMapOutlined'
+    }
   }
 ]
 
