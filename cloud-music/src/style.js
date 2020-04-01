@@ -16,7 +16,8 @@ export const GloabStyle = createGlobalStyle`
 	time, mark, audio, video {
 		margin: 0;
 		padding: 0;
-		border: 0;
+    border: 0;
+    outline: none;
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
