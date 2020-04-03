@@ -3,7 +3,7 @@ import { ListWrapper, List, ListItem } from './style'
 import { countUnitTransformation } from '../../api/util'
 export default memo((props)=> {
   const  { recommendList } = props
-  console.log(recommendList)
+  
   return (
     <>
       <ListWrapper>
