@@ -76,6 +76,13 @@ const routes: IRoute[] = [
       name: 'useCallback + 自定义',
       icon: 'HeatMapOutlined'
     }
+  },{
+    path: '/demo10',
+    component: '@/pages/demo10',
+    menu:{
+      name: 'useRef',
+      icon: 'HeatMapOutlined'
+    }
   }
 ]
 
