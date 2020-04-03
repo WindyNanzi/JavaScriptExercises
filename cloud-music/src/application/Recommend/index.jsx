@@ -22,10 +22,8 @@ export default memo(() => {
     <>
       <Content>
         <Scroll className='list'>
-        <div>
-          <Slider bannerList={ bannerList }></Slider>
-          <RecommendList recommendList={recommendList}></RecommendList>
-        </div>
+            <Slider bannerList={ bannerList }></Slider>
+            <RecommendList recommendList={recommendList}></RecommendList>
         </Scroll>
       </Content>
     </>
