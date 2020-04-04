@@ -1,6 +1,6 @@
-import {} from 'redux-immutable'
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable'
+import { reducer as recommendReducer } from '../application/Recommend/store/index'
 
 export default combineReducers({
-  //TO-DO
+  recommend: recommendReducer
 })

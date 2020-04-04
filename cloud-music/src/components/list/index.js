@@ -30,6 +30,7 @@ export default memo((props)=> {
                       </span>
                     </div>
                   </div>
+                  <div className="desc">{name}</div>
                 </ListItem>
               )
             })

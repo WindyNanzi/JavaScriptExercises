@@ -1,31 +1,53 @@
-import React,{ memo } from 'react'
+import React,{ memo, useEffect } from 'react'
 import Slider from '../../components/slider'
 import RecommendList from '../../components/list'
 import { Content } from './style'
 import Scroll from '../../baseUI/Scroll'
+import { connect } from 'react-redux'
+import * as actionTypes from './store/actionCreators'
 
-export default memo(() => {
-   //mock 数据
-  const bannerList = [1,2,3,4].map (item => {
-    return { imageUrl: "http://p1.music.126.net/ZYLJ2oZn74yUz5x8NBGkVA==/109951164331219056.jpg" }
-  });
 
-  const recommendList = [1,2,3,4,5,6,7,8,9,10].map(item => {
-    return {
-      id: item,
-      picUrl: "https://p1.music.126.net/fhmefjUfMD-8qtj3JKeHbA==/18999560928537533.jpg",
-      playCount: 17171122,
-      name: '赵雷、李志、许嵩、周杰伦'
-    }
-  })
+function Recommend(props){
+  const { bannerList, recommendList } = props
+  const { getBannerDataDispatch, getRecommendListDataDispatch } = props
+
+  
+  useEffect(() => {
+    getBannerDataDispatch()
+    getRecommendListDataDispatch()
+  }, [])
+
+  // 由于 Recommend 组件被 memo 包裹， 所以在其 props 改变的时候，会重新渲染
+  const bannerListJS = bannerList ? bannerList.toJS() : []
+  const recommendListJS = recommendList ? recommendList.toJS() : []
+
   return (
     <>
       <Content>
         <Scroll className='list'>
-            <Slider bannerList={ bannerList }></Slider>
-            <RecommendList recommendList={recommendList}></RecommendList>
+          <Slider bannerList={ bannerListJS }></Slider>
+          <RecommendList recommendList={ recommendListJS }></RecommendList>
         </Scroll>
       </Content>
     </>
   )
+}
+
+const mapStateToProps = state => ({
+  // 不要在这里将数据 toJS
+  bannerList: state.getIn(['recommend', 'bannerList']),
+  recommendList: state.getIn(['recommend', 'recommendList'])
 })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getBannerDataDispatch(){
+      dispatch(actionTypes.getBannerList())
+    },
+    getRecommendListDataDispatch(){
+      dispatch(actionTypes.getRecommendList())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Recommend))
