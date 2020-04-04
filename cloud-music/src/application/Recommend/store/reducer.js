@@ -1,18 +1,18 @@
 import * as actionTypes from './constans'
-import { fromJS } from 'immutable'
+import { produce } from 'immer'
 
-const defaultState = fromJS({
+const defaultState = {
   bannerList: [],
   recommendList: [],
-})
+}
 
-export default (state = defaultState, action) => {
+export default produce(( state = defaultState, action )=> {
   switch(action.type){
     case actionTypes.CHANGE_BANNER:
-      return state.set('bannerList', action.data)
+      return { ...state, bannerList:action.data }
     case actionTypes.CHANGE_RECOMMEND_LIST:
-      return state.set('recommendList', action.data)
+      return { ...state, recommendList:action.data  }
     default:
       return state
   }
-}
+})
