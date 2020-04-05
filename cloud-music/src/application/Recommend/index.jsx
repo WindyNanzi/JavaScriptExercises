@@ -6,10 +6,11 @@ import Scroll from '../../baseUI/Scroll'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
 import { forceCheck } from 'react-lazyload'
+import Loading from '../../baseUI/Loading'
 
 
 function Recommend(props){
-  const { bannerList, recommendList } = props
+  const { bannerList, recommendList, enterLoading } = props
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props
 
   
@@ -21,6 +22,7 @@ function Recommend(props){
   // 由于 Recommend 组件被 memo 包裹， 所以在其 props 改变的时候，会重新渲染
   const bannerListJS = bannerList ? bannerList : []
   const recommendListJS = recommendList ? recommendList: []
+  console.log(enterLoading)
 
   return (
     <>
@@ -29,6 +31,7 @@ function Recommend(props){
           <Slider bannerList={ bannerListJS }></Slider>
           <RecommendList recommendList={ recommendListJS }></RecommendList>
         </Scroll>
+        { enterLoading ? <Loading></Loading> : null }
       </Content>
     </>
   )
@@ -36,9 +39,9 @@ function Recommend(props){
 
 const mapStateToProps = state => {
   return {
-    // 不要在这里将数据 toJS
     bannerList: state.recommend.bannerList,
-    recommendList: state.recommend.recommendList
+    recommendList: state.recommend.recommendList,
+    enterLoading: state.recommend.enterLoading
   }
 }
 
