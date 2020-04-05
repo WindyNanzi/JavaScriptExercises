@@ -15,8 +15,12 @@ function Recommend(props){
 
   
   useEffect(() => {
-    getBannerDataDispatch()
-    getRecommendListDataDispatch()
+    if(!bannerList.size){
+      getBannerDataDispatch()
+    }
+    if(!recommendList.size){
+      getRecommendListDataDispatch()
+    }
   }, [])
 
   // 由于 Recommend 组件被 memo 包裹， 所以在其 props 改变的时候，会重新渲染
