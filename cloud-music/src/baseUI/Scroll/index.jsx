@@ -96,9 +96,7 @@ const Scroll = forwardRef((props, ref) => {
 
   return (
     <SrcollContaniner ref={scrollContaninerRef}>
-      <div>
-        {props.children}
-      </div>
+      {props.children}
     </SrcollContaniner>
   )
 })

@@ -1,9 +1,37 @@
-import React,{ memo } from 'react'
+import React,{ memo,useState } from 'react'
+import Horizen from '../../baseUI/Horizen'
+import { categoryTypes,alphaTypes } from '../../api/config'
+import { NavContainer } from './style'
 
 export default memo(() => {
+
+  let [category, setCategory] = useState('')
+  let [alpha, setAlpha] = useState('')
+
+  let handleUpdateAlpha = (val) => {
+    setAlpha(val)
+  }
+
+  let handleUpdataCategory = (val) => {
+    setCategory(val)
+  }
+
   return (
-    <div>
-      Singer
-    </div>
+    <>
+    <NavContainer>
+      <Horizen 
+        list={categoryTypes} 
+        title={'分类（默认热门）:'}
+        handleClick={ handleUpdataCategory }
+        oldVal = { category }
+      ></Horizen>
+      <Horizen 
+        list={alphaTypes} 
+        title={'首字母:'}
+        handleClick={ handleUpdateAlpha }
+        oldVal = { alpha }
+      ></Horizen>
+    </NavContainer>
+    </>
   )
 })

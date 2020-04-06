@@ -15,10 +15,10 @@ function Recommend(props){
 
   
   useEffect(() => {
-    if(!bannerList.size){
+    if(!bannerList.length){
       getBannerDataDispatch()
     }
-    if(!recommendList.size){
+    if(!recommendList.length){
       getRecommendListDataDispatch()
     }
   }, [])
@@ -26,14 +26,15 @@ function Recommend(props){
   // 由于 Recommend 组件被 memo 包裹， 所以在其 props 改变的时候，会重新渲染
   const bannerListJS = bannerList ? bannerList : []
   const recommendListJS = recommendList ? recommendList: []
-  console.log(enterLoading)
 
   return (
     <>
       <Content>
         <Scroll className='list' onScroll = {forceCheck}>
-          <Slider bannerList={ bannerListJS }></Slider>
-          <RecommendList recommendList={ recommendListJS }></RecommendList>
+          <div>
+            <Slider bannerList={ bannerListJS }></Slider>
+            <RecommendList recommendList={ recommendListJS }></RecommendList>
+          </div>
         </Scroll>
         { enterLoading ? <Loading></Loading> : null }
       </Content>
