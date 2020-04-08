@@ -50,6 +50,7 @@ export const GloabStyle = createGlobalStyle`
 	}
 	a {
 		text-decoration: none;
-		color: #fff;
+    color: #fff;
+    -webkit-tap-highlight-color: transparent;
 	}
 `
