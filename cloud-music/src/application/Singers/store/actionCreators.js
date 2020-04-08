@@ -75,8 +75,8 @@ export const getSingerList = (category, alpha) => {
 
 export const refreshMoreSingerList = (category, alpha) => {
   return (dispatch, getState) => {
-    const pageCount = getState().singers.pageCount
-    const singerList = getState().singers.singerList
+    const pageCount = getState().singer.pageCount
+    const singerList = getState().singer.singerList
 
     getSingerListRequest(category, alpha, pageCount).then(res => {
       const data = [...singerList, ...res.artists]

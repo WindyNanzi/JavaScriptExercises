@@ -2,6 +2,7 @@ import React,{ forwardRef,useState,useEffect,useImperativeHandle,useRef } from "
 import PropTypes from 'prop-types'
 import BScroll from 'better-scroll'
 import styled from 'styled-components'
+import Loading from '../Loading'
 
 const SrcollContaniner = styled.div`
   width: 100%;
@@ -14,7 +15,7 @@ const Scroll = forwardRef((props, ref) => {
   // current 指向初始化 bs实例需要需要的 DOM 元素
   const scrollContaninerRef = useRef()
 
-  const {direction, click, refresh,  bounceTop, bounceBottom} = props
+  const {direction, click, refresh,  bounceTop, bounceBottom, pullDownLoading, pullUpLoading} = props
   const {pullUp, pullDown, onScroll} = props
 
   useEffect(()=> {
@@ -96,7 +97,9 @@ const Scroll = forwardRef((props, ref) => {
 
   return (
     <SrcollContaniner ref={scrollContaninerRef}>
+      { pullDownLoading ? (<Loading></Loading>):null }
       {props.children}
+      { pullUpLoading ? (<Loading></Loading>):null }
     </SrcollContaniner>
   )
 })

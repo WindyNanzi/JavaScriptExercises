@@ -15,9 +15,9 @@ export const getRecommendListRequest = () => {
 }
 
 export const getHotSingerListRequest = (count) => {
-  return axiosInstance.get(`/top/artists?offset=${count}`)
+  return axiosInstance.get(`/top/artists?offset=${count*50}`)
 }
 
 export const getSingerListRequest = (category, alpha, count) => {
-  return axiosInstance.get(`/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count}`)
+  return axiosInstance.get(`/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count*50}`)
 }

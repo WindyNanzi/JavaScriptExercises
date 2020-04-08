@@ -4,8 +4,9 @@ import Loading from '../../baseUI/Loading'
 import { categoryTypes,alphaTypes } from '../../api/config'
 import { NavContainer, ListContainer, List, ListItem } from './style'
 import Scroll from '../../baseUI/Scroll'
-import { getHotSingerList, changePageCount, changeEnterLoading, getSingerList, changePullUpLoading, refreshMoreHotSingerList, changePullDownLoading } from './store/actionCreators'
+import { getHotSingerList, changePageCount, changeEnterLoading, getSingerList, changePullUpLoading, refreshMoreHotSingerList,  refreshMoreSingerList, changePullDownLoading } from './store/actionCreators'
 import { connect } from 'react-redux'
+import LazyLoad from 'react-lazyload'
 
 function Singer( props ){
 
@@ -39,6 +40,13 @@ function Singer( props ){
       enterLoading 
     )
   }
+
+  const isHotRefresh = () => {
+    return (
+      category === '' &&  
+      alpha === ''
+    )
+  }
   
 
   const renderSingerList = () => {
@@ -50,12 +58,12 @@ function Singer( props ){
             return (
               <ListItem key = { accountId + '' + index }>
                 <div className = 'img_wrapper'>
-                  <img  
-                    src={`${picUrl}?param=300x300`}
-                    width = '100%'
-                    height = '100%'
-                    alt = 'music'
-                  />
+                    <img  
+                      src={`${picUrl}?param=300x300`}
+                      width = '100%'
+                      height = '100%'
+                      alt = 'music'
+                    />
                 </div>
                 <span className='name'>{name}</span>
               </ListItem>
@@ -84,10 +92,10 @@ function Singer( props ){
       </NavContainer>
       <ListContainer>
         <Scroll
-          // pullDownLoading = { pullDownLoading }
-          // pullUpLoading = { pullUpLoading } 
-          // pullUp = { pullUpRefreshDispatch(category, alpha) }
-          // pullDown = { pullDownRefreshDispatch(category, alpha) }
+          pullDownLoading = { pullDownLoading }
+          pullUpLoading = { pullUpLoading } 
+          pullUp = { () => pullUpRefreshDispatch(category, alpha, isHotRefresh(), pageCount) }
+          pullDown = {  () => pullDownRefreshDispatch(category, alpha) }
         >
           { renderSingerList() }
         </Scroll>
@@ -121,7 +129,7 @@ const mapDispatchToProps = (dispatch) => {
       if(hot){
         dispatch(refreshMoreHotSingerList())
       } else {
-        dispatch(refreshMoreHotSingerList(category, alpha))
+        dispatch(refreshMoreSingerList(category, alpha))
       }
     },
     pullDownRefreshDispatch(category, alpha){
