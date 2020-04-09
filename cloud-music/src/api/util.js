@@ -12,3 +12,21 @@ export const countUnitTransformation = count => {
     return Math.floor(count / 10000000) / 10 + '亿'
   }
 }
+
+export const debounce = (func, delay = 300, isImmediately = true) => {
+  let timer = null
+  return function(...args){
+    if(timer){
+      if(isImmediately){
+        func.apply(this, args)
+        isImmediately = false
+      }
+      return
+    }else{
+      timer = setTimeout(()=>{
+        clearTimeout(timer)
+        func.apply(this, args)
+      }, delay)
+    }
+  } 
+}

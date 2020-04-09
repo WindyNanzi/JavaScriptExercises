@@ -1,8 +1,9 @@
-import React,{ forwardRef,useState,useEffect,useImperativeHandle,useRef } from "react"
+import React,{ forwardRef,useState,useEffect,useImperativeHandle,useRef, useMemo } from "react"
 import PropTypes from 'prop-types'
 import BScroll from 'better-scroll'
 import styled from 'styled-components'
 import Loading from '../Loading'
+import { debounce } from '../../api/util'
 
 const SrcollContaniner = styled.div`
   width: 100%;
@@ -34,7 +35,7 @@ const Scroll = forwardRef((props, ref) => {
     return ()=> {
       setBScroll(null)
     }
-  }, [])
+  }, [bounceBottom, bounceTop, click, direction])
 
   // 重新渲染需要刷新实例
   useEffect(()=>{
@@ -54,32 +55,46 @@ const Scroll = forwardRef((props, ref) => {
     }
   }, [onScroll, bScroll])
 
+
+  const pullUpDebounce = useMemo(()=>{
+    return debounce(pullUp)
+  }, [pullUp])
+
+  const pullDownDebounce = useMemo(()=> {
+    return debounce(pullDown) 
+  }, [pullDown])
+
   // 进行上拉到底的判断
   useEffect(()=>{
     if(!bScroll || !pullUp) return
     bScroll.on('scrollEnd', ()=>{
       if(bScroll.y <= bScroll.maxScrollY + 100){
-        pullUp()
+        pullUpDebounce()
       }
     })
     return ()=>{
       bScroll.off('scrollEnd')
     }
-  }, [pullUp, bScroll])
+  },
+  [pullUp, bScroll, pullUpDebounce]
+  )
 
   //  下拉判断，调用下拉刷新函数
-  useEffect(()=>{
-    if(!bScroll || !pullDown) return
-    bScroll.on('touchEnd', (pos)=>{
-      if(pos.y > 50){
-        pullDown()
-      }
-    })
+  useEffect(
+    debounce(()=>{
+      if(!bScroll || !pullDown) return
+      bScroll.on('touchEnd', (pos)=>{
+        if(pos.y > 50){
+          pullDownDebounce()
+        }
+      })
 
-    return ()=>{
-      bScroll.off('touchEnd')
-    }
-  }, [pullDown, bScroll])
+      return ()=>{
+        bScroll.off('touchEnd')
+      }
+    }), 
+    [pullDown, bScroll, pullDownDebounce]
+  )
 
   useImperativeHandle(ref, ()=>({
     refresh(){
