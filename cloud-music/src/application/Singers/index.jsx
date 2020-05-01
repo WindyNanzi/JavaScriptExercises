@@ -58,12 +58,14 @@ function Singer( props ){
             return (
               <ListItem key = { accountId + '' + index }>
                 <div className = 'img_wrapper'>
+                  <LazyLoad placeholder={ <img src= { require('../../assets/image/music.png') } ></img> }>
                     <img  
                       src={`${picUrl}?param=300x300`}
                       width = '100%'
                       height = '100%'
                       alt = 'music'
                     />
+                  </LazyLoad>
                 </div>
                 <span className='name'>{name}</span>
               </ListItem>
