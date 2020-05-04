@@ -81,7 +81,7 @@ const Scroll = forwardRef((props, ref) => {
 
   //  下拉判断，调用下拉刷新函数
   useEffect(
-    debounce(()=>{
+    ()=>{
       if(!bScroll || !pullDown) return
       bScroll.on('touchEnd', (pos)=>{
         if(pos.y > 50){
@@ -92,7 +92,7 @@ const Scroll = forwardRef((props, ref) => {
       return ()=>{
         bScroll.off('touchEnd')
       }
-    }), 
+    }, 
     [pullDown, bScroll, pullDownDebounce]
   )
 
