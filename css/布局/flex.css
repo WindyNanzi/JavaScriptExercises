@@ -1,0 +1,96 @@
+.segment {
+  display: flex;
+  flex-direction: row;
+}
+.segment.wrap .example > div {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+.segment .example {
+  display: flex;
+  flex-shrink: 1;
+  flex-grow: 1;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #312387;
+}
+.segment .example > div {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+.segment .example.flex-dir-row {
+  flex-direction: row;
+}
+.segment .example.flex-dir-row > div {
+  background-color: aqua;
+}
+.segment .example.flex-dir-col {
+  flex-direction: column;
+}
+.segment .example.flex-dir-col > div {
+  background-color: coral;
+}
+.segment .example.flex-nowa {
+  flex-wrap: nowrap;
+  max-width: 50%;
+}
+.segment .example.flex-nowa > div {
+  background-color: cornflowerblue;
+}
+.segment .example.flex-wa {
+  flex-wrap: wrap;
+}
+.segment .example.flex-wa > div {
+  background-color: fuchsia;
+}
+.segment .example.start {
+  justify-content: flex-start;
+}
+.segment .example.start > div {
+  background-color: greenyellow;
+}
+.segment .example.end {
+  justify-content: flex-end;
+}
+.segment .example.end > div {
+  background-color: hotpink;
+}
+.segment .example.center {
+  justify-content: center;
+}
+.segment .example.center > div {
+  background-color: lightsalmon;
+}
+.segment .example.space-between {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+.segment .example.space-between > div {
+  margin: 0;
+  background-color: darkgreen;
+}
+.segment .example.space-between > div:first-child {
+  width: 40px;
+}
+.segment .example.space-between > div:last-child {
+  width: 50px;
+}
+.segment .example.space-around {
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+}
+.segment .example.space-around > div {
+  margin: 0;
+  background-color: bisque;
+}
+.segment .example.space-around > div:first-child {
+  width: 40px;
+}
+.segment .example.space-around > div:last-child {
+  width: 50px;
+}
