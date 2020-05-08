@@ -7,13 +7,21 @@
     text-align: center;
     line-height: 50px;
   }
+  &.align-item .example>div{
+    &:first-child{
+      height: 40px;
+    }
+    &:last-child{
+      height: 50px;
+    }
+  }
   .example{
     display: flex;
     flex-shrink: 1;
     flex-grow: 1;
-    padding: 10px;
     margin: 5px;
-    border: 1px solid #312387;
+    border: 2px solid #312387;
+    max-width: 1000px;
     >div{
       width: 20px;
       height: 20px;
@@ -89,6 +97,127 @@
         }
         &:last-child{
           width: 50px;
+        }
+      }
+    }
+    &.al-flex-start{
+      align-items: flex-start;
+      >div{
+        background-color: darkcyan;
+      }
+    }
+    &.al-flex-end{
+      align-items: flex-end;
+      >div{
+        background-color: darkslategray;
+      }
+    }
+    &.al-center{
+      align-items: center;
+      >div{
+        background-color: gray;
+      }
+    }
+    &.al-stretch{
+      align-items: stretch; /*默认值*/
+      >div{
+        height: unset; /*高度若未设置，或者设置为auto，会占满整个空间*/
+        background-color: lightblue;
+        &:first-child{
+          height: auto;
+        }
+        &:last-child{
+          height: auto;
+        }
+      }
+    }
+    &.al-baseline{
+      align-items: baseline; /*根据文字基线对齐*/
+      >div{
+        background-color: lightsalmon;
+        &:first-child{
+          font-size: 12px;
+        }
+        &:last-child{
+          font-size: 30px;
+        }
+      }
+    }
+    &.order>div{
+      background-color: chartreuse;
+      order: 9;
+      &:nth-child(1){
+        order: 0;
+      }
+      &:nth-child(2){
+        order: 1;
+        width: 40px;
+      }
+      &:nth-child(3){
+        order: 2;
+      }
+      &:nth-child(5){
+        width: 50px;
+      }
+    }
+    &.flex-grow>div{
+      background-color: cadetblue;
+      &:nth-child(1){
+        flex-grow: 1;
+      }
+      &:nth-child(2){
+        flex-grow: 2;
+      }
+    }
+    &.flex-shink>div{
+      background-color: cornsilk;
+      flex-basis: 1000px;
+      margin: 0;
+      &:nth-child(1){
+        flex-shrink: 1;
+        background-color: coral;
+      }
+      &:nth-child(2){
+        flex-shrink: 3;
+        background-color: darkgrey;
+      }
+      &:nth-child(3){
+        flex-shrink: 2;
+        background-color: darkturquoise;
+      }
+    }
+    &.align-self{
+      align-items: baseline;
+      >div{
+        background-color: gold;
+        text-align: center;
+        flex-basis: 50px;
+        height: unset;
+        &:nth-child(1){
+          font-size: 50px;
+          height: 70px;
+        }
+        &:nth-child(2){
+          font-size: 12px;
+        }
+        &:nth-child(3){
+          align-self: flex-start;
+          height: 40px;
+        }
+        &:nth-child(6){
+          font-size: 30px;
+          height: 50px;
+        }
+        &:nth-child(7){
+          font-size: 20px;
+          align-self: center;
+        }
+        &:nth-child(8){
+          align-self: flex-end;
+        }
+        &:nth-child(9){
+          font-size: 24px;
+          align-self: stretch;
         }
       }
     }
