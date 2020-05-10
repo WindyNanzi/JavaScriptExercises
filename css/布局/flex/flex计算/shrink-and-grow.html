@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shink-and-grow</title>
+  <link rel="stylesheet" href="./shrink-and-grow.css">
+</head>
+<body>
+  <h2>flex-grow: 1,3,2; 容器宽度 600px;$(<code>exp</code>)表示计算的结果值小于0时取0</h2>
+  <p>flex-basic: 30px</p>
+  <section class="grow">
+    <pre>
+      shrink总系数：1+3+2 = 6
+      项目1宽度： 600 * (1 / 6) = 100px
+      项目2宽度： 600 * (3 / 6) = 300px
+      项目3宽度： 600 * (1 / 6) = 200px
+    </pre>
+    <div class="example grow-default">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>padding</h3>
+    <pre>
+      shrink总系数：1+3+2 = 6
+      项目1宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(1 / 6) = 150px
+      项目2宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(3 / 6) = 250px
+      项目3宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(1 / 6) = 200px
+    </pre>
+    <div class="example grow-padding">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>margin: 计算方法同上</h3>
+    <div class="example grow-margin">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </section>
+  <h2>flex-shrink:</h2>
+  <section class="shrink">
+    <h3>defalut:</h3>
+    <p>flex-basic: 600px</p>
+    <pre>
+      shrink总系数：1+3+2 = 6
+      项目总宽度：600 * 3 = 1800px
+      超出宽度：1800 - 600 = 1200px
+      项目1宽度： $(600 - ((1/6) * 1200)) = 400px
+      项目2宽度： $(600 - ((3/6) * 1200)) = 0px
+      项目3宽度： $(600 - ((2/6) * 1200)) = 200px
+    </pre>
+    <div class="example shrink-default">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>padding:</h3>
+    <p>flex-basic: 150px; padding:0 75px;</p>
+    <pre>
+      shrink总系数：1+3+2 = 6
+      项目总宽度：(150 + 75*2) * 3 = 900px
+      超出宽度：900 - 600 = 300px
+      项目1宽度： (75*2) + $((150 - (1/6) * 300)) = 250px
+      项目2宽度： (75*2) + $((150 - (3/6) * 300)) = 150px
+      项目3宽度： (75*2) + $((150 - (2/6) * 300)) = 200px
+    </pre>
+    <div class="example shrink-padding">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>margin: 同padding, 但着色由盒子宽度+padding宽度决定，所以着色不一致</h3>
+    <div class="example shrink-margin">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>margin+padding: 计算原理与上面一致。</h3>
+    <pre>
+      shrink总系数：1+3+2 = 6
+      项目总宽度：(200 + 25*2 + 25*2) * 3 = 900px
+      超出宽度：900 - 600 = 300px
+      项目1宽度： (25*4) + $((200 - (1/6) * 300)) = 250px
+      项目2宽度： (25*4) + $((200 - (3/6) * 300)) = 150px
+      项目3宽度： (25*4) + $((200 - (2/6) * 300)) = 200px
+    </pre>
+    <h3>
+      <p>存在flex-shink元素宽度计算公式：</p>
+      <p>盒子的flex-box宽度 = padding + border + margin + (盒子预设定宽度 - (盒子的flex-shrink / 盒子所在容器的总flex-shrink)*(盒子原来的总宽度 - 容器盒子宽度))</p>
+    </h3>
+    <div class="example shrink-padding-margin">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </section>
+
+  <h2>总结计算公式:</h2>
+  <p>令 Wf 为 项目经过flex伸缩变化后的宽度 </p>
+  <p>令 Wc 为 容器的宽度</p>
+  <p>令 Wr 为 项目的真实宽度</p>
+  <p>令 Wi 为 项目的盒子宽度(margin + border + padding + Wr)</p>
+  <p>令 Wic 为所有项目加起来的盒子宽度总和</p>
+  <p>令 Fi 为项目的伸缩系数</p>
+  <p>令 Fic 为所有项目的伸缩系数和</p>
+  <p>令 有函数 <code> $ </code>接收一个number, 如果number < 0 ,则返回 0，否则， 返回 number</p>
+  <p> <b>在grow下：</b> </p>
+  <p><b> Wf = Wi + $(Wc - Wic)*(Fi / Fic) </b></p>
+  <p> <b>在shrink下：</b> </p>
+  <p><b> Wf = (Wi - Wr) + $(Wr - $(Wic - Wc)*(Fi / Fic)) </b></p>
+</body>
+</html>
