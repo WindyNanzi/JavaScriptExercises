@@ -111,5 +111,29 @@
   <p><b> Wf = Wi + $(Wc - Wic)*(Fi / Fic) </b></p>
   <p> <b>在shrink下：</b> </p>
   <p><b> Wf = (Wi - Wr) + $(Wr - $(Wic - Wc)*(Fi / Fic)) </b></p>
+  <p> 注意 shrink 下公式不可以 变成 Wf = $(Wi - $(Wic - Wc)*(Fi / Fic)), 因为padding 与 margin 的宽度恒定不变</p>
+
+  <h3>shrink 的 特殊情况... </h3>
+  <p>日常开发中不经常将一个元素的宽度设置为0</p>
+  <section class="segment shrink">
+    <p>给其一个min-width:150px</p>
+    <div class="example shrink-special">
+      <div>
+        <p>shrink: 1</p>
+        <p>width: 600 - 250 = 350px</p>
+      </div>
+      <div>
+        <p>shrink: 3</p>
+        <p>min-width: 150px</p>
+      </div>
+      <div>
+        <p>shrink: 2</p>
+        <p>width: 600 - 500 = 100px</p>
+      </div>
+    </div>
+    <p><b>稍加计算可以推测出 250px = ((600*2 + 150) - 600) * 1/3; </b></p>
+    <p><b>可得出结论：在min-width生效时，min-width项目的伸缩系数不再进入计算公式，或者那时候的项目伸缩系数为0，同理grow下的max-width也应遵循这个定理</b></p>
+  </section>
+  <h3>参考： https://drafts.csswg.org/css-flexbox-1/#abspos-items</h3>
 </body>
 </html>
