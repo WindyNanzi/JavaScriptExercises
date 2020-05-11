@@ -1,4 +1,23 @@
 section{
+  &.grow .example{
+    >div{
+      &:nth-child(1){
+        flex-grow: 1;
+        flex-basis: 50px;
+        background-color: palegreen;
+      }
+      &:nth-child(2){
+        flex-grow: 3;
+        flex-basis: 100px;
+        background-color: plum;
+      }
+      &:nth-child(3){
+        flex-grow: 2;
+        flex-basis: 150px;
+        background-color: tomato;
+      }
+    }
+  }
   &.shrink .example{
     >div{
       &:nth-child(1){
@@ -10,24 +29,7 @@ section{
         background-color: plum;
       }
       &:nth-child(3){
-        flex-shrink: 2;
-        background-color: tomato;
-      }
-    }
-  }
-  &.grow .example{
-    >div{
-      flex-basis: 50px;
-      &:nth-child(1){
-        flex-grow: 1;
-        background-color: palegreen;
-      }
-      &:nth-child(2){
-        flex-grow: 3;
-        background-color: plum;
-      }
-      &:nth-child(3){
-        flex-grow: 2;
+        flex-shrink: 1;
         background-color: tomato;
       }
     }
@@ -39,16 +41,79 @@ section{
     width: 600px;
     border: 2px solid navy;
     margin: 5px 0;
-
+    >div{
+      position: relative;
+      font-size: 12px;
+      .box-info{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        p{
+          white-space: nowrap;
+          margin: 0;
+        }
+      }
+    }
+    &.grow-default{
+      >div{
+      }
+    }
+    &.grow-padding{
+      >div{
+        padding:0 25px;
+      }
+    }
+    &.grow-margin{
+      >div{
+        margin: 0 25px;
+      }
+    }
+    &.shrink-test{
+      >div{
+        &:nth-child(1){
+          flex-basis: 600px;
+          flex-shrink: 1;
+        }
+        &:nth-child(2){
+          flex-basis: 600px;
+          flex-shrink: 3;
+          z-index: 1;
+        }
+        &:nth-child(3){
+          flex-basis: 600px;
+          flex-shrink: 2;
+        }
+      }
+    }
     &.shrink-default{
       >div{
-        flex-basis: 600px;
+        &:nth-child(1){
+          flex-basis: 200px;
+        }
+        &:nth-child(2){
+          flex-basis: 600px;
+        }
+        &:nth-child(3){
+          flex-basis: 400px;
+        }
       }
     }
     &.shrink-padding{
       >div{
-        flex-basis: 150px;
-        padding: 0 75px;
+        &:nth-child(1){
+          flex-basis: 100px;
+          padding: 0 50px;
+        }
+        &:nth-child(2){
+          flex-shrink: 5;
+          flex-basis: 700px;
+          padding: 0 50px;
+        }
+        &:nth-child(3){
+          flex-basis: 300px;
+          padding:  0 50px;
+        }
       }
     }
     &.shrink-margin{
@@ -62,21 +127,6 @@ section{
         flex-basis: 200px;
         margin: 0 25px;
         padding: 0 25px;
-      }
-    }
-    &.grow-default{
-      >div{
-        flex-basis: 0;
-      }
-    }
-    &.grow-padding{
-      >div{
-        padding:0 25px;
-      }
-    }
-    &.grow-margin{
-      >div{
-        margin: 0 25px;
       }
     }
     &.shrink-special{ 

@@ -1,3 +1,18 @@
+section.grow .example > div:nth-child(1) {
+  flex-grow: 1;
+  flex-basis: 50px;
+  background-color: palegreen;
+}
+section.grow .example > div:nth-child(2) {
+  flex-grow: 3;
+  flex-basis: 100px;
+  background-color: plum;
+}
+section.grow .example > div:nth-child(3) {
+  flex-grow: 2;
+  flex-basis: 150px;
+  background-color: tomato;
+}
 section.shrink .example > div:nth-child(1) {
   flex-shrink: 1;
   background-color: palegreen;
@@ -7,22 +22,7 @@ section.shrink .example > div:nth-child(2) {
   background-color: plum;
 }
 section.shrink .example > div:nth-child(3) {
-  flex-shrink: 2;
-  background-color: tomato;
-}
-section.grow .example > div {
-  flex-basis: 50px;
-}
-section.grow .example > div:nth-child(1) {
-  flex-grow: 1;
-  background-color: palegreen;
-}
-section.grow .example > div:nth-child(2) {
-  flex-grow: 3;
-  background-color: plum;
-}
-section.grow .example > div:nth-child(3) {
-  flex-grow: 2;
+  flex-shrink: 1;
   background-color: tomato;
 }
 section .example {
@@ -33,12 +33,60 @@ section .example {
   border: 2px solid navy;
   margin: 5px 0;
 }
-section .example.shrink-default > div {
+section .example > div {
+  position: relative;
+  font-size: 12px;
+}
+section .example > div .box-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+section .example > div .box-info p {
+  white-space: nowrap;
+  margin: 0;
+}
+section .example.grow-padding > div {
+  padding: 0 25px;
+}
+section .example.grow-margin > div {
+  margin: 0 25px;
+}
+section .example.shrink-test > div:nth-child(1) {
+  flex-basis: 600px;
+  flex-shrink: 1;
+}
+section .example.shrink-test > div:nth-child(2) {
+  flex-basis: 600px;
+  flex-shrink: 3;
+  z-index: 1;
+}
+section .example.shrink-test > div:nth-child(3) {
+  flex-basis: 600px;
+  flex-shrink: 2;
+}
+section .example.shrink-default > div:nth-child(1) {
+  flex-basis: 200px;
+}
+section .example.shrink-default > div:nth-child(2) {
   flex-basis: 600px;
 }
-section .example.shrink-padding > div {
-  flex-basis: 150px;
-  padding: 0 75px;
+section .example.shrink-default > div:nth-child(3) {
+  flex-basis: 400px;
+}
+section .example.shrink-padding > div:nth-child(1) {
+  flex-basis: 100px;
+  padding: 0 50px;
+}
+section .example.shrink-padding > div:nth-child(2) {
+  flex-shrink: 5;
+  flex-basis: 700px;
+  padding: 0 50px;
+}
+section .example.shrink-padding > div:nth-child(3) {
+  flex-basis: 300px;
+  padding: 0 50px;
 }
 section .example.shrink-margin > div {
   flex-basis: 150px;
@@ -48,15 +96,6 @@ section .example.shrink-padding-margin > div {
   flex-basis: 200px;
   margin: 0 25px;
   padding: 0 25px;
-}
-section .example.grow-default > div {
-  flex-basis: 0;
-}
-section .example.grow-padding > div {
-  padding: 0 25px;
-}
-section .example.grow-margin > div {
-  margin: 0 25px;
 }
 section .example.shrink-special > div {
   flex-basis: 600px;

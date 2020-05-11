@@ -7,55 +7,162 @@
   <link rel="stylesheet" href="./shrink-and-grow.css">
 </head>
 <body>
-  <h2>flex-grow: 1,3,2; 容器宽度 600px;$(<code>exp</code>)表示计算的结果值小于0时取0</h2>
-  <p>flex-basic: 30px</p>
+  <h2>flex-grow</h2>
   <section class="grow">
-    <pre>
-      shrink总系数：1+3+2 = 6
-      项目1宽度： 600 * (1 / 6) = 100px
-      项目2宽度： 600 * (3 / 6) = 300px
-      项目3宽度： 600 * (1 / 6) = 200px
-    </pre>
     <div class="example grow-default">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis: 50px</p>
+          <p>flex-grow: 1</p>
+          <details>
+            <p>当前宽度:100px</p>
+          </details>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis:100px</p>
+          <p>flex-grow:3</p>
+          <details>
+            <p>当前宽度: 250px</p>
+          </details>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis:150px</p>
+          <p>flex-grow:2</p>
+          <details>
+            <p>当前宽度: 250px</p>
+          </details>
+        </div>
+      </div>
     </div>
+    <details>
+      <summary>计算方法</summary>
+      <pre>
+        容器宽度：600px
+        总伸缩系数：1 + 3 + 2 = 6
+        空闲宽度：600 - (50 + 100 + 150) =  300
+        项目1的flex宽度： 50 + 300 * 1/6 = 100px 
+        项目2的flex宽度： 100 + 300 * 3/6 = 250px 
+        项目3的flex宽度： 150 + 300 * 2/6 = 250px 
+      </pre>
+    </details>
     <h3>padding</h3>
-    <pre>
-      shrink总系数：1+3+2 = 6
-      项目1宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(1 / 6) = 150px
-      项目2宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(3 / 6) = 250px
-      项目3宽度： 50 + 25 * 2 + $(600 - (50+25*2)*3)*(1 / 6) = 200px
-    </pre>
     <div class="example grow-padding">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <h3>margin: 计算方法同上</h3>
-    <div class="example grow-margin">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis:50px</p>
+          <p>flex-grow:1</p>
+          <p>padding:0 25px</p>
+          <details>
+            <p>当前宽度:125px</p>
+          </details>
+          
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis:100px</p>
+          <p>flex-grow:3</p>
+          <p>padding:0 25px</p>
+          <details>
+            <p>当前宽度:225px</p>
+          </details>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis:150px</p>
+          <p>flex-grow:2</p>
+          <p>padding:0 25px</p>
+          <details>
+            <p>当前宽度:250px</p>
+          </details>
+        </div>
+      </div>
     </div>
   </section>
   <h2>flex-shrink:</h2>
   <section class="shrink">
-    <h3>defalut:</h3>
-    <p>flex-basic: 600px</p>
+    <h3>test:</h3>
     <pre>
-      shrink总系数：1+3+2 = 6
-      项目总宽度：600 * 3 = 1800px
-      超出宽度：1800 - 600 = 1200px
-      项目1宽度： $(600 - ((1/6) * 1200)) = 400px
-      项目2宽度： $(600 - ((3/6) * 1200)) = 0px
-      项目3宽度： $(600 - ((2/6) * 1200)) = 200px
+      容器宽度：600px
+      flex-shrink：1 , 3 , 2 
+      flex-basis: 600px, 600px, 600px
+      求各个容器的宽度
     </pre>
+    <details>
+      <div class="example shrink-test">
+        <div>
+          <div class="box-info">
+            <p>flex-basis:600px</p>
+            <p>flex-shrink:1</p>
+            <details>
+              <p>当前宽度:400px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:600px</p>
+            <p>flex-shrink:3</p>
+            <details>
+              <p>当前宽度: 0</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:600px</p>
+            <p>flex-shrink:2</p>
+            <details>
+              <p>当前宽度:200px</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>计算过程</summary>
+      <pre>
+        容器宽度：600px
+        溢出宽度：600*3 - 600 =  1200
+        项目1的flex宽度： 600 - 1200 * 1/6 = 400px 
+        项目2的flex宽度： 600 - 1200 * 3/6 = 0px 
+        项目3的flex宽度： 600 - 1200 * 2/6 = 200px 
+      </pre>
+    </details>
+    <h3>defalut:</h3>
     <div class="example shrink-default">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis: 200px</p>
+          <p>flex-shrink: 1</p>
+          <details>
+            <p>当前宽度: 150px</p>
+          </details>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis: 600px</p>
+          <p>flex-shrink: 3</p>
+          <details>
+            <p>当前宽度: 150px</p>
+          </details>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basis: 400px</p>
+          <p>flex-shrink: 1</p>
+          <details>
+            <p>当前宽度: 300px</p>
+          </details>
+        </div>
+      </div>
     </div>
     <h3>padding:</h3>
     <p>flex-basic: 150px; padding:0 75px;</p>
@@ -68,9 +175,30 @@
       项目3宽度： (75*2) + $((150 - (2/6) * 300)) = 200px
     </pre>
     <div class="example shrink-padding">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>
+        <div class="box-info">
+          <p>flex-basic: 100px</p>
+          <p>flex-shrink: 1</p>
+          <p>padding: 50px</p>
+          <p>当前宽度: 175px</p>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basic: 700px</p>
+          <p>flex-shrink: 5</p>
+          <p>padding: 50px</p>
+          <p>当前宽度: 100px</p>
+        </div>
+      </div>
+      <div>
+        <div class="box-info">
+          <p>flex-basic: 300px</p>
+          <p>flex-shrink: 1</p>
+          <p>padding: 50px</p>
+          <p>当前宽度: 325px</p>
+        </div>
+      </div>
     </div>
     <h3>margin: 同padding, 但着色由盒子宽度+padding宽度决定，所以着色不一致</h3>
     <div class="example shrink-margin">
