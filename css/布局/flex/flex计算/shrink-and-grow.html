@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>shink-and-grow</title>
   <link rel="stylesheet" href="./shrink-and-grow.css">
 </head>
+
 <body>
   <h2>flex-grow</h2>
   <section class="grow">
-    <div class="example grow-default">
-      <div>
-        <div class="box-info">
-          <p>flex-basis: 50px</p>
-          <p>flex-grow: 1</p>
-          <details>
-            <p>当前宽度:100px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis:100px</p>
-          <p>flex-grow:3</p>
-          <details>
-            <p>当前宽度: 250px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis:150px</p>
-          <p>flex-grow:2</p>
-          <details>
-            <p>当前宽度: 250px</p>
-          </details>
-        </div>
-      </div>
+    <h3>test:</h3>
+    <pre>
+      容器宽度：600px
+      flex-shrink：1 , 3 , 2 
+      flex-basis: 50px, 100px, 150px
+      求各个容器的宽度
+    </pre>
+    <div>
+      A: <input type="radio" name="grow-default" id="">100px, 250px, 250px <br>
+      B: <input type="radio" name="grow-default" id="">100px, 300px, 200px <br>
+      C: <input type="radio" name="grow-default" id="">A，B都不对 <br>
     </div>
+
+    <details>
+      <div class="example grow-default">
+        <div>
+          <div class="box-info">
+            <p>flex-basis: 50px</p>
+            <p>flex-grow: 1</p>
+            <details>
+              <p>当前宽度:100px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:100px</p>
+            <p>flex-grow:3</p>
+            <details>
+              <p>当前宽度: 250px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:150px</p>
+            <p>flex-grow:2</p>
+            <details>
+              <p>当前宽度: 250px</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
+
     <details>
       <summary>计算方法</summary>
       <pre>
@@ -50,39 +68,53 @@
       </pre>
     </details>
     <h3>padding</h3>
-    <div class="example grow-padding">
-      <div>
-        <div class="box-info">
-          <p>flex-basis:50px</p>
-          <p>flex-grow:1</p>
-          <p>padding:0 25px</p>
-          <details>
-            <p>当前宽度:125px</p>
-          </details>
-          
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis:100px</p>
-          <p>flex-grow:3</p>
-          <p>padding:0 25px</p>
-          <details>
-            <p>当前宽度:225px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis:150px</p>
-          <p>flex-grow:2</p>
-          <p>padding:0 25px</p>
-          <details>
-            <p>当前宽度:250px</p>
-          </details>
-        </div>
-      </div>
+    <pre>
+      容器宽度：600px
+      flex-shrink：1 , 3 , 2 
+      flex-basis: 50px, 100px, 150px
+      padding: 0 25px
+      求各个容器的宽度
+    </pre>
+    <div>
+      A: <input type="radio" name="grow-padding" id="">125px, 225px, 250px <br>
+      B: <input type="radio" name="grow-padding" id="">120px, 230px, 250px <br>
+      C: <input type="radio" name="grow-padding" id="">A，B都不对 <br>
     </div>
+    <details>
+      <div class="example grow-padding">
+        <div>
+          <div class="box-info">
+            <p>flex-basis:50px</p>
+            <p>flex-grow:1</p>
+            <p>padding:0 25px</p>
+            <details>
+              <p>当前宽度:125px</p>
+            </details>
+
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:100px</p>
+            <p>flex-grow:3</p>
+            <p>padding:0 25px</p>
+            <details>
+              <p>当前宽度:225px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis:150px</p>
+            <p>flex-grow:2</p>
+            <p>padding:0 25px</p>
+            <details>
+              <p>当前宽度:250px</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
   </section>
   <h2>flex-shrink:</h2>
   <section class="shrink">
@@ -93,6 +125,11 @@
       flex-basis: 600px, 600px, 600px
       求各个容器的宽度
     </pre>
+    <div>
+      A: <input type="radio" name="shrink-test" id="">250px, 150px, 200px <br>
+      B: <input type="radio" name="shrink-test" id="">300px, 100px, 200px <br>
+      C: <input type="radio" name="shrink-test" id="">A，B都不对 <br>
+    </div>
     <details>
       <div class="example shrink-test">
         <div>
@@ -135,35 +172,49 @@
       </pre>
     </details>
     <h3>defalut:</h3>
-    <div class="example shrink-default">
-      <div>
-        <div class="box-info">
-          <p>flex-basis: 200px</p>
-          <p>flex-shrink: 1</p>
-          <details>
-            <p>当前宽度: 150px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis: 600px</p>
-          <p>flex-shrink: 3</p>
-          <details>
-            <p>当前宽度: 150px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basis: 400px</p>
-          <p>flex-shrink: 1</p>
-          <details>
-            <p>当前宽度: 300px</p>
-          </details>
-        </div>
-      </div>
+    <pre>
+      容器宽度：600px
+      flex-shrink：1 , 3 , 1 
+      flex-basis: 200px, 600px, 400px
+      求各个容器的宽度
+    </pre>
+    <div>
+      A: <input type="radio" name="shrink-default" id="">150px, 150px, 300px <br>
+      B: <input type="radio" name="shrink-default" id="">80px, 240px, 280px <br>
+      C: <input type="radio" name="shrink-default" id="">A，B都不对 <br>
     </div>
+    <details>
+      <div class="example shrink-default">
+        <div>
+          <div class="box-info">
+            <p>flex-basis: 200px</p>
+            <p>flex-shrink: 1</p>
+            <details>
+              <p>当前宽度: 150px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis: 600px</p>
+            <p>flex-shrink: 3</p>
+            <details>
+              <p>当前宽度: 150px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basis: 400px</p>
+            <p>flex-shrink: 1</p>
+            <details>
+              <p>当前宽度: 300px</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
+
     <details>
       <summary>计算过程</summary>
       <pre>
@@ -176,38 +227,52 @@
       </pre>
     </details>
     <h3>padding:</h3>
-    <div class="example shrink-padding">
-      <div>
-        <div class="box-info">
-          <p>flex-basic: 100px</p>
-          <p>flex-shrink: 1</p>
-          <p>padding: 50px</p>
-          <details>
-            <p>当前宽度: 175px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basic: 700px</p>
-          <p>flex-shrink: 5</p>
-          <p>padding: 50px</p>
-          <details>
-            <p>当前宽度: 100px</p>
-          </details>
-        </div>
-      </div>
-      <div>
-        <div class="box-info">
-          <p>flex-basic: 300px</p>
-          <p>flex-shrink: 1</p>
-          <p>padding: 50px</p>
-          <details>
-            <p>当前宽度: 325px</p>
-          </details>
-        </div>
-      </div>
+    <pre>
+      容器宽度：600px
+      flex-shrink：1 , 5 , 1 
+      flex-basis: 100px, 700px, 300px
+      padding: 0 50px
+      求各个容器的宽度
+    </pre>
+    <div>
+      A: <input type="radio" name="shrink-padding" id="">179.5px, 82px, 338.5px <br>
+      B: <input type="radio" name="shrink-padding" id="">180px, 100px, 320px <br>
+      C: <input type="radio" name="shrink-padding" id="">A，B都不对 <br>
     </div>
+    <details>
+      <div class="example shrink-padding">
+        <div>
+          <div class="box-info">
+            <p>flex-basic: 100px</p>
+            <p>flex-shrink: 1</p>
+            <p>padding: 50px</p>
+            <details>
+              <p>当前宽度: 175px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basic: 700px</p>
+            <p>flex-shrink: 5</p>
+            <p>padding: 50px</p>
+            <details>
+              <p>当前宽度: 100px</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="box-info">
+            <p>flex-basic: 300px</p>
+            <p>flex-shrink: 1</p>
+            <p>padding: 50px</p>
+            <details>
+              <p>当前宽度: 325px</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </details>
     <details>
       <summary>计算过程</summary>
       <pre>
@@ -250,4 +315,5 @@
   </section>
   <h3>参考： https://drafts.csswg.org/css-flexbox-1/#abspos-items</h3>
 </body>
+
 </html>
