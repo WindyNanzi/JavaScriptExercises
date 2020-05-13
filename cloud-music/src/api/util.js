@@ -38,3 +38,7 @@ export const filterIndex = rankList => {
     }
   }
 }
+
+export const getName = list => list.reduce((acc, cur, curIndex) => {
+  return acc + (curIndex === 0 ? cur.name : '/'+cur.name)
+}, '')
