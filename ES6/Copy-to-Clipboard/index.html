@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class='stopPropagationToBody'>
+    <span class="copy-value">这是一段文字</span>
+    <button class="copy-to-clipboard">copy</button>
+  </div>
+  <script src="./copy-to-clipboard.js"></script>
+  <script>
+    const copyBtn = document.querySelector('.copy-to-clipboard')
+    const span = document.querySelector('.copy-value')
+    const stopContainer = document.querySelector('.stopPropagationToBody')
+
+    let text = span.textContent
+
+    copyBtn.addEventListener('click', function(e){
+      e.stopPropagation()
+      if(copy(text)){
+        console.log('success!')
+      }else{
+        console.log('failed!')
+      }
+    })
+
+    stopContainer.addEventListener('click', function(e){
+      e.stopPropagation()
+    })
+
+  </script>
+</body>
+</html>
