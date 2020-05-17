@@ -1,14 +1,19 @@
 function deselectCurrent(){
-  const selection = document.getSelection()  //获取当前选择的区域
-  if(!selection.rangeCount){ //该选区连续范围的数量
+  //window.getSelection 方法返回一个 Selectin 对象，Selection对象表示用户选择的文本范围或插入符号的当前位置
+  const selection = document.getSelection()  //表示用户选择的文本范围或光标的当前位置
+  //rangeCount：该选区连续范围的数量，用户通常情况下只能选中一段连续的内容，所以这个值通常是0或者1，通过js可以使这个值变大
+  if(!selection.rangeCount){
     return ()=>{}
   }
 
   const ranges = []
   for(let i = 0; i<selection.rangeCount; i++){
+    // 返回选区包含的指定区域（Range）的引用
+    // Range 接口表示一个包含节点与文本节点的一部分的文档片段。
     ranges.push(selection.getRangeAt(i))
   }
 
+  // 将所有的区域都从选区中移除
   selection.removeAllRanges()
 
   const active = document.activeElement //获取当前获得焦点的元素
@@ -16,7 +21,7 @@ function deselectCurrent(){
   switch(active.tagName.toUpperCase()){
     case 'INPUT':
     case 'TEXTAREA':
-      active.blur()
+      active.blur() //使得元素失去焦点
       break
 
     default:
@@ -25,6 +30,7 @@ function deselectCurrent(){
   }
 
   return function(){
+    // 实际上 MDN 对 Selection 对象上不包含 type 属性，而 typescript 的接口中还包含有这个属性
     selection.type === 'Caret' ? selection.removeAllRanges() : null
     
     if(!selection.rangeCount){
