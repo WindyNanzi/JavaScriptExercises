@@ -23,14 +23,14 @@ function deselectCurrent(){
     case 'TEXTAREA':
       active.blur() //使得元素失去焦点
       break
-
     default:
-      active = null
+      // active = null
       break
   }
 
   return function(){
     // 实际上 MDN 对 Selection 对象上不包含 type 属性，而 typescript 的接口中还包含有这个属性
+    //在此处应为判断 选择区域的类型 是否为聚焦的光标
     selection.type === 'Caret' ? selection.removeAllRanges() : null
     
     if(!selection.rangeCount){
@@ -69,11 +69,13 @@ function copy(text, options){
   if(!options){
     options = {}
   }
+  // 清空现有的Range然后将Range恢复的方法存在返回的函数里
   reselectPrevious = deselectCurrent()
 
   try{
-    reselectPrevious = deselectCurrent()
+    // reselectPrevious = deselectCurrent()
 
+    // 创造一个 range
     range = document.createRange()
     selection = document.getSelection()
 
@@ -92,8 +94,8 @@ function copy(text, options){
     mark.style.userSelect = 'text'
 
     mark.addEventListener('copy', function(e){
-      e.stopPropagation()
-
+      //ClipboardEvent.clipboardData 属性保存了一个 DataTransfer 对象
+      //描述哪些数据可以由 cut 和 copy 事件处理器放入剪切板，通常通过调用 setData(format, data) 方法
       if(options.format){
         e.preventDefault()
         if(typeof e.clipboardData === 'undefined'){ //IE11
@@ -114,6 +116,7 @@ function copy(text, options){
 
     document.body.appendChild(mark)
 
+    //selectNodeContents: 使 Range 包含某个节点的内容
     range.selectNodeContents(mark)
     selection.addRange(range)
 
