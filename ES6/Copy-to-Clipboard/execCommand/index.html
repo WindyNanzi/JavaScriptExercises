@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="App">
+    <div class="father">
+      <h1>{{ statusOfExecCommand }}</h1>
+      <span>{{ massage }}</span>
+      <p><button @click='handleDefaultClick'>正常的按钮</button></p>
+      <p><button @click='handlePromiseClick'>Promise按钮</button></p>
+      <p><button @click='handleAsyncClick'>Async按钮</button></p>
+      <p>
+        <input type="number" max="3000" maxlength="4" min="0" name="" id="" v-model='timeout'> 
+        <button @click='handleSTClick'>setTimeout, {{timeout}}ms按钮</button>
+      </p>
+      <p>
+        <span>获取一句古诗：{{poetry}}</span>
+        <button @click='handleAsyncAjaxClick'>Async + Ajax 按钮</button>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const App = new Vue({
+      el: '#App',
+      data:{
+        massage:'这是一串即将被复制的文本',
+        statusOfExecCommand: false,
+        timeout:0,
+        elem: null,
+        poetry: '浮天水送无穷树，带雨云埋一半山'
+      },
+      methods:{
+        logExecCommandCopy: function(){
+          console.log(`before-Selection:----------${document.execCommand('copy')}---------`)
+          this.createEleAndSeletion()
+          console.log(`after-Selection:----------${document.execCommand('copy')}---------`)
+          this.statusOfExecCommand = document.execCommand('copy')
+        },
+        createEleAndSeletion: function(){
+          const range = document.createRange()
+          const selection = document.getSelection()
+          
+          if(this.elem === null){
+            this.elem = document.createElement('span')
+            const mark = this.elem
+
+            mark.textContent = '这是一段会被选中的文本'
+            mark.style.fontSize = '50px'
+
+            mark.style.webkitUserSelect = 'text'
+            mark.style.MozUserSelect = 'text'
+            mark.style.msUserSelect = 'text'
+            mark.style.userSelect = 'text'
+
+            document.body.appendChild(mark)
+            range.selectNodeContents(mark)
+            selection.addRange(range)
+          } else {
+            selection.removeAllRanges()
+            range.selectNodeContents(this.elem)
+            selection.addRange(range)
+          }
+        },
+        handleDefaultClick: function(e){
+          this.logExecCommandCopy()
+        },
+        handlePromiseClick: function(e){
+          new Promise((resolve) => {
+            resolve()
+          }).then(()=>{
+            this.logExecCommandCopy()
+          })
+        },
+        handleAsyncClick: async function(e){
+          const res = await new Promise((resolve) => {
+            resolve('async')
+          })
+          console.log(res)
+          this.logExecCommandCopy()
+        },
+        handleSTClick: function(e){
+          console.log(`timeout----------${this.timeout}-----------------------------------`)
+          setTimeout(()=>{
+            this.logExecCommandCopy()
+          },this.timeout)
+        },
+        getPoetry: async function(e){
+          return axios.get('https://v1.jinrishici.com/all.txt')
+        },
+        handleAsyncAjaxClick: async function(e){
+          const { data: poetry } = await this.getPoetry()
+          this.poetry = poetry
+          this.logExecCommandCopy()
+        }
+
+      },
+      mounted(){
+        this.logExecCommandCopy()
+      }
+    })
+  </script>
+</body>
+</html>
